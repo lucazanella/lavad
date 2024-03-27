@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="Harnessing Large Language Models for Training-Free Video Anomaly Detection. Accepted to CVPR 2024.">
+  <meta property="og:title" content="Harnessing Large Language Models for Training-Free Video Anomaly Detection" />
+  <meta property="og:description" content="Learn more about LAVAD, accepted to CVPR 2024." />
+  <meta property="og:url" content="https://lucazanella.github.io/lavad/" />
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630
+  <meta property="og:image" content="docs/static/images/teaser.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" /> -->
+
+
+  <meta name="twitter:title" content="Harnessing Large Language Models for Training-Free Video Anomaly Detection. Accepted to CVPR 2024.">
+  <meta name="twitter:description" content="Harnessing Large Language Models for Training-Free Video Anomaly Detection">
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
+  <meta name="twitter:image" content="static/images/your_twitter_banner_image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Keywords for your paper to be indexed by-->
+  <meta name="keywords" content="LAVAD, large language models, video anomaly detection, CVPR 2024">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title>Harnessing Large Language Models for Training-free Video Anomaly Detection</title>
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+
+<body>
+
+  <style>
+    .author-block {
+      margin-right: 10px;
+      /* Adjust the value as per your preference */
+    }
+  </style>
+
+  <style>
+    /* Custom CSS for tooltip */
+    .custom-tooltip .tooltip-inner {
+      background-color: #f1f1f1;
+      color: #333333;
+    }
+
+    .custom-tooltip .tooltip.bs-tooltip-top .arrow::before {
+      border-top-color: #f1f1f1;
+    }
+  </style>
+
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <!-- <h1 class="title is-1 publication-title"><b style="font-size: 64px;">LAVAD</b></h1> -->
+            <h1 class="title is-1 publication-title">Harnessing Large Language Models for Training-free Video Anomaly Detection</h1>
+            <div class="is-size-5 publication-authors">
+              <!-- Paper authors -->
+              <span class="author-block">
+                <a href="FIRST AUTHOR PERSONAL LINK" target="_blank">Luca Zanella</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://www.willimenapace.com/" target="_blank">Willi Menapace</a><sup>1,2</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://mancinimassimiliano.github.io/" target="_blank">Massimiliano Mancini</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://www.yimingwang.it/" target="_blank">Yiming Wang</a><sup>3</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://eliricci.eu/" target="_blank">Elisa Ricci</a><sup>1,3</sup>
+              </span>
+            </div>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block" style="margin-left: 10px;"></span><sup>1</sup></span> University of Trento
+              <span class="author-block" style="margin-left: 10px;"></span><sup>2</sup></span> Snap Inc.
+              <span class="author-block" style="margin-left: 10px;"></span><sup>3</sup></span> Fondazione Bruno Kessler
+            </div>
+
+            <!-- Github link -->
+            <span class="link-block">
+              <a href="https://github.com/lucazanella/lavad" target="_blank"
+              class="external-link button is-normal is-rounded is-dark">
+              <span class="icon">
+                <i class="fab fa-github"></i>
+              </span>
+              <span>Code</span>
+            </a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Paper abstract -->
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              Video anomaly detection (VAD) aims to temporally locate abnormal events 
+              in a video. Existing works mostly rely on training deep models to learn 
+              the distribution of normality with either video-level supervision, 
+              one-class supervision, or in an unsupervised setting. Training-based 
+              methods are prone to be domain-specific, thus being costly for practical 
+              deployment as any domain change will involve data collection and model 
+              training.
+
+              In this paper, we radically depart from previous efforts and propose 
+              <b>LA</b>nguage-based <b>VAD</b> (<em>LAVAD</em>), a method tackling VAD in a novel, 
+              <em>training-free</em> paradigm, exploiting the capabilities of pre-trained 
+              Large Language Models (LLMs) and existing Vision-Language Models (VLMs). 
+              We leverage VLM-based captioning models to generate textual descriptions 
+              for each frame of any test video. With the textual scene description, we 
+              then devise a prompting mechanism to unlock the capability of LLMs in 
+              terms of temporal aggregation and anomaly score estimation, turning LLMs 
+              into an effective video anomaly detector.
+
+              We further leverage modality-aligned VLMs and propose effective 
+              techniques based on cross-modal similarity for cleaning noisy captions 
+              and refining the LLM-based anomaly scores. We evaluate <em>LAVAD</em> on 
+              two large datasets featuring real-world surveillance scenarios 
+              (UCF-Crime and XD-Violence), showing that it outperforms both 
+              unsupervised and one-class methods without requiring any training or 
+              data collection.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End paper abstract -->
+
+  <!-- End paper abstract -->
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <h2 class="title is-3">Task Definition</h2>
+        <div style="display: flex; justify-content: center;">
+          <img src="static/images/teaser.png" alt="Banner Image" height="100%" width="75%" style="margin-bottom: 55px;">
+        </div>
+        <h2 class="subtitle has-text-justified">
+          We introduce the first training-free method for Video Anomaly Detection (VAD), 
+          diverging from state-of-the-art methods that are ALL training-based with 
+          different degrees of supervision. Our proposal, <em>LAVAD</em>, leverages 
+          modality-aligned Vision and Language Models (VLMs) to query and enhance the 
+          anomaly scores generated by Large Language Models (LLMs).
+        </h2>
+      </div>
+    </div>
+  </section>
+  <!-- End paper abstract -->
+
+  <!-- Method overview-->
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <h2 class="title is-3">Method Overview</h2>
+        <img src="static/images/architecture.png" alt="Banner Image" height="100%">
+        <h2 class="subtitle has-text-justified">
+          <p>The architecture of our proposed <em>LAVAD</em> for addressing training-free 
+            VAD. For each test video \(\mathbf{V}\), we first employ a captioning model to 
+            generate a caption \(C_i\) for each frame \(i \in \mathbf{V}\), forming a 
+            caption sequence. Our <em>Image-Text Caption Cleaning</em> component addresses 
+            noisy and incorrect raw captions based on cross-modal similarity. We replace 
+            the raw caption with a caption \( \in \mathbf{C} \) whose textual embedding \( 
+            \mathcal{E}_T(\hat{C}_i) \) is most aligned to the image embedding \( 
+            \mathcal{E}_I(\mathbf{I}_i) \), resulting in a cleaned caption sequence \( 
+            \hat{\mathbf{C}} \). To account for scene context and dynamics, our 
+            <em>LLM-based Anomaly Scoring</em> component further aggregates the cleaned 
+            captions within a temporal window centered around each frame by prompting the 
+            LLM to produce a temporal summary, forming a summary sequence \( \mathbf{S} \). 
+            The LLM is then queried to provide an anomaly score for each frame based on its 
+            summary, obtaining the initial anomaly scores \( \mathbf{a} \) for all frames. 
+            Finally, our <em>Video-Text Score Refinement</em> component refines each score 
+            by aggregating the initial anomaly scores of frames whose textual embeddings of 
+            the summaries are mostly aligned to the representation \( 
+            \mathcal{E}_V(\mathbf{V}_i) \) of the video snippet centered around each frame, 
+            leading to the final anomaly scores \( \tilde{a} \) for detecting the anomalies 
+            (<span style=color:red>anomalous frames</span> are highlighted) within the 
+            video.</p>
+        </h2>
+      </div>
+    </div>
+  </section>
+  <!-- End method overview -->
+
+  <!-- Video description-->
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+
+          <h2 class="title is-3">Qualitative Results</h2>
+          <div class="content has-text-justified">
+            <p>
+              Each of the following illustrations presents a video from the testing
+              dataset of either UCF-Crime or XD-Violence. For UCF-Crime, the
+              threshold used to classify a frame as normal or abnormal is derived
+              from the area under the receiver operating characteristic curve
+              (AUC). This threshold corresponds to the point that maximizes the
+              difference between the true positive rate and false positive rate.
+              For XD-Violence, the threshold for anomaly detection is based on
+              the area under the precision-recall curve (AP), and it is the point
+              that maximizes the product of precision and recall. When a frame's
+              anomaly score exceeds this threshold, it is classified as anomalous,
+              and this is visually indicated by a red bounding box around the video.
+              In the lower figure, red shaded areas depict temporal ground-truth
+              anomalies, complemented by a red slider indicating the progression of
+              time within the video.
+            </p>
+          </div>
+        </div>
+
+    </div>
+  </section>
+  <!-- End Video description -->
+
+  <!-- Teaser video-->
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <video poster="" id="tree" autoplay controls muted loop height="100%">
+          <!-- Your video here -->
+          <source src="videos/Robbery102_x264.mp4" type="video/mp4">
+        </video>
+        <h2 class="subtitle has-text-justified">
+          The video shows a man assaulting a woman in an attempt to 
+          steal her handbag, leading to the woman fighting back. LAVAD 
+          accurately identifies the anomalous segments in the video, 
+          and the captions precisely convey the content of the scene.
+        </h2>
+      </div>
+    </div>
+  </section>
+  <!-- End teaser video -->
+
+  <!-- Teaser video-->
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+          <video poster="" id="tree" autoplay controls muted loop height="100%">
+            <!-- Your video here -->
+            <source src="videos/Normal_Videos_722_x264.mp4" type="video/mp4">
+          </video>
+          <h2 class="subtitle has-text-justified">
+            The video shows an office environment where individuals 
+            are working at their desks without any unusual incidents. 
+            LAVAD consistently assigns a low anomaly score throughout 
+            the entire video duration.
+          </h2>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End teaser video -->
+
+  <!-- Teaser video-->
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <video poster="" id="tree" autoplay controls muted loop height="100%">
+          <!-- Your video here -->
+          <source src="videos/Shooting047_x264.mp4" type="video/mp4">
+        </video>
+        <h2 class="subtitle has-text-justified">
+          The video portrays a police-suspect shootout, and LAVAD
+          accurately assigns a high anomaly score when the video is labeled
+          abnormal. However, in its initial and final segments, labeled
+          as normal, LAVAD also assigns high anomaly scores. This occurs
+          because introductory text at the beginning leads the LLM to
+          attribute elevated anomaly scores. Conversely, in the final part,
+          our method correctly identifies abnormality, as there is a person
+          on the ground who has been shot.
+        </h2>
+      </div>
+    </div>
+  </section>
+  <!-- End teaser video -->
+
+  <!-- Teaser video-->
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+          <video poster="" id="tree" autoplay controls muted loop height="100%">
+            <!-- Your video here -->
+            <source src="videos/Burglary079_x264.mp4" type="video/mp4">
+          </video>
+          <h2 class="subtitle has-text-justified">
+            The video shows a group of men attempting burglary. In the portion
+            labeled abnormal, LAVAD assigns a high anomaly score. However, false
+            abnormal instances occur because the summary caption suggests the
+            presence of a man stealing a car. Although the video does depict a man
+            acting suspiciously near a car, this leads to an inaccurate anomaly
+            assignment.
+          </h2>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End teaser video -->
+
+  <!-- Teaser video-->
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <video poster="" id="tree" autoplay controls muted loop height="100%">
+          <!-- Your video here -->
+          <source src="videos/v=96N4XAJ7FKM__%231_label_B1-0-0.mp4" type="video/mp4">
+        </video>
+        <h2 class="subtitle has-text-justified">
+          The video shows a hockey game with players engaged in a
+          fight. LAVAD accurately assigns a high anomaly score to the
+          segments of the video that capture the fighting scenes.
+        </h2>
+      </div>
+    </div>
+  </section>
+  <!-- End teaser video -->
+
+  <!-- Teaser video-->
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+          <video poster="" id="tree" autoplay controls muted loop height="100%">
+            <!-- Your video here -->
+            <source src="videos/Ip.Man.2008__%2300-48-57_00-50-47_label_B1-0-0.mp4" type="video/mp4">
+          </video>
+          <h2 class="subtitle has-text-justified">
+            The video shows a fight between martial artists. LAVAD accurately
+            assigns a high anomaly score to the segments capturing the fighting
+            scenes.
+          </h2>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End teaser video -->
+
+  <!-- Teaser video-->
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <video poster="" id="tree" autoplay controls muted loop height="100%">
+          <!-- Your video here -->
+          <source src="videos/GoldenEye.1995__%2300-10-00_00-10-40_label_G-0-0.mp4" type="video/mp4">
+        </video>
+        <h2 class="subtitle has-text-justified">
+          The video shows a small airplane flying over a snowy mountain, 
+          with a building exploding. LAVAD assigns a higher anomaly score 
+          to the segments corresponding to the summary caption indicating
+          an explosion.
+        </h2>
+      </div>
+    </div>
+  </section>
+  <!-- End teaser video -->
+
+  <!-- Teaser video-->
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+          <video poster="" id="tree" autoplay controls muted loop height="100%">
+            <!-- Your video here -->
+            <source src="videos/v=EeUTpfyb0qo__%231_label_A.mp4" type="video/mp4">
+          </video>
+          <h2 class="subtitle has-text-justified">
+            The video shows a driving simulation. LAVAD consistently assigns
+            low anomaly scores for more than 17,500 frames.
+          </h2>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End teaser video -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+
+  <script>
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+  </script>
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+
+            <p>
+              This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template"
+                target="_blank">Academic Project Page Template</a>.
+              You are free to borrow the code of this website, we just ask that you link back to this page in the footer.
+              <br> This website is licensed under a <a rel="license"
+                href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+                Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+
+  <!-- Statcounter tracking code -->
+  <!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+  <!-- End of Statcounter Code -->
+
+</body>
+
+</html>
