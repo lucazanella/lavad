@@ -1,5 +1,7 @@
 <div align="center">
 
+[![Website](https://img.shields.io/badge/website-LAVAD-4285F4.svg)](https://lucazanella.github.io/lavad/)
+
 # Harnessing Large Language Models for Training-free Video Anomaly Detection
 
 Luca Zanella, [Willi Menapace](https://www.willimenapace.com/), [Massimiliano Mancini](https://mancinimassimiliano.github.io/), [Yiming Wang](https://www.yimingwang.it/), [Elisa Ricci](https://eliricci.eu/) <br>
