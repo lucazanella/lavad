@@ -188,23 +188,23 @@
         <h2 class="subtitle has-text-justified">
           <p>The architecture of our proposed <em>LAVAD</em> for addressing training-free 
             VAD. For each test video \(\mathbf{V}\), we first employ a captioning model to 
-            generate a caption \(C_i\) for each frame \(i \in \mathbf{V}\), forming a 
-            caption sequence. Our <em>Image-Text Caption Cleaning</em> component addresses 
+            generate a caption \(C_i\) for each frame \(\mathbf{I}_i \in \mathbf{V}\), forming a 
+            caption sequence \(\mathbf{C}\). Our <em>Image-Text Caption Cleaning</em> component addresses 
             noisy and incorrect raw captions based on cross-modal similarity. We replace 
-            the raw caption with a caption \( \in \mathbf{C} \) whose textual embedding \( 
+            the raw caption with a caption \(\hat{C}_i \in \mathbf{C} \) whose textual embedding \( 
             \mathcal{E}_T(\hat{C}_i) \) is most aligned to the image embedding \( 
             \mathcal{E}_I(\mathbf{I}_i) \), resulting in a cleaned caption sequence \( 
             \hat{\mathbf{C}} \). To account for scene context and dynamics, our 
             <em>LLM-based Anomaly Scoring</em> component further aggregates the cleaned 
-            captions within a temporal window centered around each frame by prompting the 
-            LLM to produce a temporal summary, forming a summary sequence \( \mathbf{S} \). 
+            captions within a temporal window centered around each \(\mathbf{I}_i\) by prompting the 
+            LLM to produce a temporal summary \(S_i\), forming a summary sequence \( \mathbf{S} \). 
             The LLM is then queried to provide an anomaly score for each frame based on its 
-            summary, obtaining the initial anomaly scores \( \mathbf{a} \) for all frames. 
-            Finally, our <em>Video-Text Score Refinement</em> component refines each score 
+            \(S_i\), obtaining the initial anomaly scores \( \mathbf{a} \) for all frames. 
+            Finally, our <em>Video-Text Score Refinement</em> component refines each \(a_i\) 
             by aggregating the initial anomaly scores of frames whose textual embeddings of 
             the summaries are mostly aligned to the representation \( 
-            \mathcal{E}_V(\mathbf{V}_i) \) of the video snippet centered around each frame, 
-            leading to the final anomaly scores \( \tilde{a} \) for detecting the anomalies 
+            \mathcal{E}_V(\mathbf{V}_i) \) of the video snippet \(\mathbf{V}_i \) centered around \(\mathbf{I}_i \), 
+            leading to the final anomaly scores \( \mathbf{\tilde{a}} \) for detecting the anomalies 
             (<span style=color:red>anomalous frames</span> are highlighted) within the 
             video.</p>
         </h2>
