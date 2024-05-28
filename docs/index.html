@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Meta tags for social media banners, these should be filled in appropriately as they are your "business card" -->
   <!-- Replace the content tag with appropriate information -->
   <meta name="description" content="Harnessing Large Language Models for Training-free Video Anomaly Detection. Accepted to CVPR 2024.">
   <meta property="og:title" content="Harnessing Large Language Models for Training-free Video Anomaly Detection" />
@@ -12,7 +12,7 @@
   <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
   <meta property="og:image" content="static/images/teaser.png" />
   <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" /> 
+  <meta property="og:image:height" content="630" />
 
 
   <meta name="twitter:title" content="Harnessing Large Language Models for Training-free Video Anomaly Detection. Accepted to CVPR 2024.">
@@ -102,6 +102,19 @@
               <span class="author-block" style="margin-left: 10px;"></span><sup>3</sup></span> Fondazione Bruno Kessler
             </div>
 
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                   <!-- Arxiv PDF link -->
+                <span class="link-block">
+                  <a href="https://arxiv.org/pdf/2404.01014" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+
             <!-- Github link -->
             <span class="link-block">
               <a href="https://github.com/lucazanella/lavad" target="_blank"
@@ -111,6 +124,17 @@
               </span>
               <span>Code</span>
             </a>
+
+            <!-- ArXiv abstract Link -->
+            <span class="link-block">
+              <a href="https://arxiv.org/abs/2404.01014" target="_blank"
+              class="external-link button is-normal is-rounded is-dark">
+              <span class="icon">
+                <i class="ai ai-arxiv"></i>
+              </span>
+              <span>arXiv</span>
+            </a>
+          </span>
 
           </div>
         </div>
@@ -127,30 +151,30 @@
           <h2 class="title is-3">Abstract</h2>
           <div class="content has-text-justified">
             <p>
-              Video anomaly detection (VAD) aims to temporally locate abnormal events 
-              in a video. Existing works mostly rely on training deep models to learn 
-              the distribution of normality with either video-level supervision, 
-              one-class supervision, or in an unsupervised setting. Training-based 
-              methods are prone to be domain-specific, thus being costly for practical 
-              deployment as any domain change will involve data collection and model 
+              Video anomaly detection (VAD) aims to temporally locate abnormal events
+              in a video. Existing works mostly rely on training deep models to learn
+              the distribution of normality with either video-level supervision,
+              one-class supervision, or in an unsupervised setting. Training-based
+              methods are prone to be domain-specific, thus being costly for practical
+              deployment as any domain change will involve data collection and model
               training.
 
-              In this paper, we radically depart from previous efforts and propose 
-              <b>LA</b>nguage-based <b>VAD</b> (<em>LAVAD</em>), a method tackling VAD in a novel, 
-              <em>training-free</em> paradigm, exploiting the capabilities of pre-trained 
-              Large Language Models (LLMs) and existing Vision-Language Models (VLMs). 
-              We leverage VLM-based captioning models to generate textual descriptions 
-              for each frame of any test video. With the textual scene description, we 
-              then devise a prompting mechanism to unlock the capability of LLMs in 
-              terms of temporal aggregation and anomaly score estimation, turning LLMs 
+              In this paper, we radically depart from previous efforts and propose
+              <b>LA</b>nguage-based <b>VAD</b> (<em>LAVAD</em>), a method tackling VAD in a novel,
+              <em>training-free</em> paradigm, exploiting the capabilities of pre-trained
+              Large Language Models (LLMs) and existing Vision-Language Models (VLMs).
+              We leverage VLM-based captioning models to generate textual descriptions
+              for each frame of any test video. With the textual scene description, we
+              then devise a prompting mechanism to unlock the capability of LLMs in
+              terms of temporal aggregation and anomaly score estimation, turning LLMs
               into an effective video anomaly detector.
 
-              We further leverage modality-aligned VLMs and propose effective 
-              techniques based on cross-modal similarity for cleaning noisy captions 
-              and refining the LLM-based anomaly scores. We evaluate <em>LAVAD</em> on 
-              two large datasets featuring real-world surveillance scenarios 
-              (UCF-Crime and XD-Violence), showing that it outperforms both 
-              unsupervised and one-class methods without requiring any training or 
+              We further leverage modality-aligned VLMs and propose effective
+              techniques based on cross-modal similarity for cleaning noisy captions
+              and refining the LLM-based anomaly scores. We evaluate <em>LAVAD</em> on
+              two large datasets featuring real-world surveillance scenarios
+              (UCF-Crime and XD-Violence), showing that it outperforms both
+              unsupervised and one-class methods without requiring any training or
               data collection.</p>
           </div>
         </div>
@@ -168,10 +192,10 @@
           <img src="static/images/teaser.png" alt="Banner Image" height="100%" width="75%" style="margin-bottom: 55px;">
         </div>
         <h2 class="subtitle has-text-justified">
-          We introduce the first training-free method for Video Anomaly Detection (VAD), 
-          diverging from state-of-the-art methods that are ALL training-based with 
-          different degrees of supervision. Our proposal, <em>LAVAD</em>, leverages 
-          modality-aligned Vision and Language Models (VLMs) to query and enhance the 
+          We introduce the first training-free method for Video Anomaly Detection (VAD),
+          diverging from state-of-the-art methods that are ALL training-based with
+          different degrees of supervision. Our proposal, <em>LAVAD</em>, leverages
+          modality-aligned Vision and Language Models (VLMs) to query and enhance the
           anomaly scores generated by Large Language Models (LLMs).
         </h2>
       </div>
@@ -186,26 +210,26 @@
         <h2 class="title is-3">Method Overview</h2>
         <img src="static/images/architecture.png" alt="Banner Image" height="100%">
         <h2 class="subtitle has-text-justified">
-          <p>The architecture of our proposed <em>LAVAD</em> for addressing training-free 
-            VAD. For each test video \(\mathbf{V}\), we first employ a captioning model to 
-            generate a caption \(C_i\) for each frame \(\mathbf{I}_i \in \mathbf{V}\), forming a 
-            caption sequence \(\mathbf{C}\). Our <em>Image-Text Caption Cleaning</em> component addresses 
-            noisy and incorrect raw captions based on cross-modal similarity. We replace 
-            the raw caption with a caption \(\hat{C}_i \in \mathbf{C} \) whose textual embedding \( 
-            \mathcal{E}_T(\hat{C}_i) \) is most aligned to the image embedding \( 
-            \mathcal{E}_I(\mathbf{I}_i) \), resulting in a cleaned caption sequence \( 
-            \hat{\mathbf{C}} \). To account for scene context and dynamics, our 
-            <em>LLM-based Anomaly Scoring</em> component further aggregates the cleaned 
-            captions within a temporal window centered around each \(\mathbf{I}_i\) by prompting the 
-            LLM to produce a temporal summary \(S_i\), forming a summary sequence \( \mathbf{S} \). 
-            The LLM is then queried to provide an anomaly score for each frame based on its 
-            \(S_i\), obtaining the initial anomaly scores \( \mathbf{a} \) for all frames. 
-            Finally, our <em>Video-Text Score Refinement</em> component refines each \(a_i\) 
-            by aggregating the initial anomaly scores of frames whose textual embeddings of 
-            the summaries are mostly aligned to the representation \( 
-            \mathcal{E}_V(\mathbf{V}_i) \) of the video snippet \(\mathbf{V}_i \) centered around \(\mathbf{I}_i \), 
-            leading to the final anomaly scores \( \mathbf{\tilde{a}} \) for detecting the anomalies 
-            (<span style=color:red>anomalous frames</span> are highlighted) within the 
+          <p>The architecture of our proposed <em>LAVAD</em> for addressing training-free
+            VAD. For each test video \(\mathbf{V}\), we first employ a captioning model to
+            generate a caption \(C_i\) for each frame \(\mathbf{I}_i \in \mathbf{V}\), forming a
+            caption sequence \(\mathbf{C}\). Our <em>Image-Text Caption Cleaning</em> component addresses
+            noisy and incorrect raw captions based on cross-modal similarity. We replace
+            the raw caption with a caption \(\hat{C}_i \in \mathbf{C} \) whose textual embedding \(
+            \mathcal{E}_T(\hat{C}_i) \) is most aligned to the image embedding \(
+            \mathcal{E}_I(\mathbf{I}_i) \), resulting in a cleaned caption sequence \(
+            \hat{\mathbf{C}} \). To account for scene context and dynamics, our
+            <em>LLM-based Anomaly Scoring</em> component further aggregates the cleaned
+            captions within a temporal window centered around each \(\mathbf{I}_i\) by prompting the
+            LLM to produce a temporal summary \(S_i\), forming a summary sequence \( \mathbf{S} \).
+            The LLM is then queried to provide an anomaly score for each frame based on its
+            \(S_i\), obtaining the initial anomaly scores \( \mathbf{a} \) for all frames.
+            Finally, our <em>Video-Text Score Refinement</em> component refines each \(a_i\)
+            by aggregating the initial anomaly scores of frames whose textual embeddings of
+            the summaries are mostly aligned to the representation \(
+            \mathcal{E}_V(\mathbf{V}_i) \) of the video snippet \(\mathbf{V}_i \) centered around \(\mathbf{I}_i \),
+            leading to the final anomaly scores \( \mathbf{\tilde{a}} \) for detecting the anomalies
+            (<span style=color:red>anomalous frames</span> are highlighted) within the
             video.</p>
         </h2>
       </div>
@@ -252,9 +276,9 @@
           <source src="videos/Robbery102_x264.mp4" type="video/mp4">
         </video>
         <h2 class="subtitle has-text-justified">
-          The video shows a man assaulting a woman in an attempt to 
-          steal her handbag, leading to the woman fighting back. LAVAD 
-          accurately identifies the anomalous segments in the video, 
+          The video shows a man assaulting a woman in an attempt to
+          steal her handbag, leading to the woman fighting back. LAVAD
+          accurately identifies the anomalous segments in the video,
           and the captions precisely convey the content of the scene.
         </h2>
       </div>
@@ -271,9 +295,9 @@
             <source src="videos/Normal_Videos_722_x264.mp4" type="video/mp4">
           </video>
           <h2 class="subtitle has-text-justified">
-            The video shows an office environment where individuals 
-            are working at their desks without any unusual incidents. 
-            LAVAD consistently assigns a low anomaly score throughout 
+            The video shows an office environment where individuals
+            are working at their desks without any unusual incidents.
+            LAVAD consistently assigns a low anomaly score throughout
             the entire video duration.
           </h2>
         </div>
@@ -373,8 +397,8 @@
           <source src="videos/GoldenEye.1995__%2300-10-00_00-10-40_label_G-0-0.mp4" type="video/mp4">
         </video>
         <h2 class="subtitle has-text-justified">
-          The video shows a small airplane flying over a snowy mountain, 
-          with a building exploding. LAVAD assigns a higher anomaly score 
+          The video shows a small airplane flying over a snowy mountain,
+          with a building exploding. LAVAD assigns a higher anomaly score
           to the segments corresponding to the summary caption indicating
           an explosion.
         </h2>
