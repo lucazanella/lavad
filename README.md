@@ -5,7 +5,7 @@
 
 # Harnessing Large Language Models for Training-free Video Anomaly Detection
 
-Luca Zanella, [Willi Menapace](https://www.willimenapace.com/), [Massimiliano Mancini](https://mancinimassimiliano.github.io/), [Yiming Wang](https://www.yimingwang.it/), [Elisa Ricci](https://eliricci.eu/) <br>
+[Luca Zanella](https://lucazanella.github.io/), [Willi Menapace](https://www.willimenapace.com/), [Massimiliano Mancini](https://mancinimassimiliano.github.io/), [Yiming Wang](https://www.yimingwang.it/), [Elisa Ricci](https://eliricci.eu/) <br>
 
 </div>
 
@@ -95,10 +95,11 @@ You can save the videos in a `videos` folder and run the scripts in `scripts` on
 Please consider citing our paper in your publications if the project helps your research.
 
 ```
-@article{zanella2024harnessing,
+@inproceedings{zanella2024harnessing,
   title={Harnessing Large Language Models for Training-free Video Anomaly Detection},
   author={Zanella, Luca and Menapace, Willi and Mancini, Massimiliano and Wang, Yiming and Ricci, Elisa},
-  journal={arXiv preprint arXiv:2404.01014},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={18527--18536},
   year={2024}
 }
 ```
